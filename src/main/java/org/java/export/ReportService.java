@@ -35,6 +35,10 @@ import org.w3c.dom.Element;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+/**
+ * The ReportService class provides methods to export sales data into various file formats such as
+ * CSV, JSON, XML, and PDF.
+ */
 public class ReportService {
 
   private static final String DEFAULT_OUTPUT_DIR = "reports";
@@ -43,10 +47,28 @@ public class ReportService {
       NumberFormat.getCurrencyInstance(Locale.UK);
 
 
+  /**
+   * Exports a list of sales data to the default output directory in the specified format. The
+   * method supports various export formats such as CSV, JSON, XML, and PDF.
+   *
+   * @param sales  the list of sales records to be exported
+   * @param format the export format (e.g., CSV, JSON, XML, PDF)
+   */
   public void export(List<Sale> sales, ExportFormat format) {
     export(sales, format, DEFAULT_OUTPUT_DIR);
   }
 
+  /**
+   * Exports a list of sales data to the specified output directory in the given format. The method
+   * supports exporting data in various formats such as CSV, JSON, XML, and PDF. If the output
+   * directory does not exist, it will be created.
+   *
+   * @param sales           the list of sales records to be exported
+   * @param format          the export format (e.g., CSV, JSON, XML, PDF)
+   * @param outputDirectory the target directory where the exported file(s) will be created
+   * @throws RuntimeException if the output directory creation fails or if an unsupported format is
+   *                          provided
+   */
   public void export(List<Sale> sales, ExportFormat format, String outputDirectory) {
     try {
       Path dirPath = Paths.get(outputDirectory);
@@ -66,6 +88,12 @@ public class ReportService {
     }
   }
 
+  /**
+   * Exports a list of sales data to a CSV file in the specified output directory.
+   *
+   * @param sales           the list of sales records to be exported
+   * @param outputDirectory the target directory where the CSV file will be created
+   */
   private void exportCsv(List<Sale> sales, String outputDirectory) {
     String filename = outputDirectory + "/sales_report.csv";
 
@@ -90,6 +118,13 @@ public class ReportService {
     }
   }
 
+  /**
+   * Exports a list of sales data to a JSON file in the specified output directory.
+   *
+   * @param sales           the list of sales records to be exported
+   * @param outputDirectory the target directory where the JSON file will be created
+   * @throws RuntimeException if the JSON export fails
+   */
   private void exportJson(List<Sale> sales, String outputDirectory) {
     String filename = outputDirectory + "/sales_report.json";
 
@@ -107,6 +142,13 @@ public class ReportService {
     }
   }
 
+  /**
+   * Exports a list of sales data to an XML file in the specified output directory.
+   *
+   * @param sales           the list of sales records to be exported
+   * @param outputDirectory the target directory where the XML file will be created
+   * @throws RuntimeException if the XML export fails
+   */
   private void exportXml(List<Sale> sales, String outputDirectory) {
     String filename = outputDirectory + "/sales_report.xml";
 
@@ -146,12 +188,30 @@ public class ReportService {
     }
   }
 
+  /**
+   * Appends a child text element to a parent XML element in the provided document. The method
+   * creates an XML element with the specified name, assigns it the given text value, and appends it
+   * to the parent element.
+   *
+   * @param doc    the XML Document to which the element belongs
+   * @param parent the parent element to which the new element will be appended
+   * @param name   the name of the new XML element to be created
+   * @param value  the text value to set for the new XML element
+   */
   private void appendTextElement(Document doc, Element parent, String name, String value) {
     Element element = doc.createElement(name);
     element.appendChild(doc.createTextNode(value));
     parent.appendChild(element);
   }
 
+  /**
+   * Escapes special characters in a given text to ensure it is safely formatted for use in CSV
+   * files. Specifically, it escapes double quotes by doubling them and wraps the text in double
+   * quotes if it contains a comma.
+   *
+   * @param text the input text to escape; can be null
+   * @return the escaped string, or an empty string if the input text is null
+   */
   private String escapeSpecialCharacters(String text) {
     if (text == null) {
       return "";
@@ -160,6 +220,15 @@ public class ReportService {
     return text.replace("\"", "\"\"").contains(",") ? "\"" + text + "\"" : text;
   }
 
+  /**
+   * Exports a list of sales records to a PDF file in the specified output directory. The generated
+   * PDF includes a sales report with a title, a table listing the sale details, and a summary with
+   * the total amount and number of sales.
+   *
+   * @param sales           the list of sales records to be included in the PDF
+   * @param outputDirectory the target directory where the PDF file will be created
+   * @throws RuntimeException if an error occurs during PDF creation or file writing
+   */
   private void exportPdf(List<Sale> sales, String outputDirectory) {
     String filename = outputDirectory + "/sales_report.pdf";
 
@@ -215,6 +284,14 @@ public class ReportService {
     }
   }
 
+  /**
+   * Adds a row to the provided PDF table with the details of the given sale. Each cell in the row
+   * represents a property of the sale, including ID, product name, amount, date, and customer name.
+   * The cells are styled with consistent formatting and alignment.
+   *
+   * @param table the PDF table to which the row will be added
+   * @param sale  the sale record containing information to populate the row
+   */
   private void addTableRow(PdfPTable table, Sale sale) {
     Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
 
@@ -247,6 +324,14 @@ public class ReportService {
     table.addCell(customerCell);
   }
 
+  /**
+   * Adds a header row to the specified PDF table. The headers include column titles
+   * such as "ID", "Product Name", "Amount", "Date", and "Customer Name". Each header
+   * cell is styled with bold font, white text, and dark gray background, and is
+   * centered within the cell.
+   *
+   * @param table the PDF table to which the header row will be added
+   */
   private void addTableHeader(PdfPTable table) {
     com.itextpdf.text.Font
         headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
