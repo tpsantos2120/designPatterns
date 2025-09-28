@@ -4,15 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import org.java.enums.ExportFormat;
 import org.java.model.Sale;
-import org.java.strategy.impl.CsvExportStrategy;
-import org.java.strategy.impl.JsonExportStrategy;
-import org.java.strategy.impl.PdfExportStrategy;
-import org.java.strategy.impl.XmlExportStrategy;
 
 /**
  * Service class responsible for exporting sales data into various formats. The export formats
@@ -23,14 +18,11 @@ import org.java.strategy.impl.XmlExportStrategy;
 public class ReportService {
 
   private static final String DEFAULT_OUTPUT_DIR = "reports";
-  private final Map<ExportFormat, ExportStrategy> strategies = new EnumMap<>(ExportFormat.class);
+  private final Map<ExportFormat, ExportStrategy> strategies;
 
-  public ReportService() {
+  public ReportService(Map<ExportFormat, ExportStrategy> strategies) {
     // Initialize and register all available strategies
-    strategies.put(ExportFormat.CSV, new CsvExportStrategy());
-    strategies.put(ExportFormat.JSON, new JsonExportStrategy());
-    strategies.put(ExportFormat.XML, new XmlExportStrategy());
-    strategies.put(ExportFormat.PDF, new PdfExportStrategy());
+    this.strategies = strategies;
   }
 
   /**

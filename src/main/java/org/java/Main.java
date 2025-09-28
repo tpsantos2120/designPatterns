@@ -3,10 +3,15 @@ package org.java;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.java.strategy.ReportService;
 import org.java.enums.ExportFormat;
 import org.java.model.Sale;
+import org.java.strategy.impl.CsvExportStrategy;
+import org.java.strategy.impl.JsonExportStrategy;
+import org.java.strategy.impl.PdfExportStrategy;
+import org.java.strategy.impl.XmlExportStrategy;
 
 class Main {
   void main() {
@@ -36,7 +41,15 @@ class Main {
         .customerName("Bob Johnson")
         .build());
 
-    ReportService reportService = new ReportService();
+    ReportService reportService =
+        new ReportService(
+            Map.of(
+                ExportFormat.CSV, new CsvExportStrategy(),
+                ExportFormat.PDF, new PdfExportStrategy(),
+                ExportFormat.XML, new XmlExportStrategy(),
+                ExportFormat.JSON, new JsonExportStrategy()
+            )
+        );
 
     reportService.export(sales, ExportFormat.CSV);
     reportService.export(sales, ExportFormat.JSON);
