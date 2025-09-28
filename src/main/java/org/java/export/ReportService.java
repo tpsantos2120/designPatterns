@@ -1,4 +1,4 @@
-package org.java;
+package org.java.export;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.itextpdf.text.BaseColor;
@@ -27,6 +27,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.java.model.Sale;
+import org.java.enums.ExportFormat;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
