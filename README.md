@@ -1,7 +1,7 @@
 # Sales Report Generator
 
 ## Overview
-This is a Java application that demonstrates the implementation report generation. The application allows for the export of sales data into multiple formats (CSV, JSON, XML, PDF) using a common class and format-specific implementations.
+This is a Java application that demonstrates the implementation of a report generator. The application allows for the export of sales data into multiple formats (CSV, JSON, XML, PDF) using a common class and format-specific implementations.
 
 ## Features
 - Export sales data to multiple file formats:
