@@ -1,4 +1,4 @@
-package org.java;
+package org.java.observerPatternV1.model;
 
 import java.time.LocalDate;
 import java.util.UUID;
