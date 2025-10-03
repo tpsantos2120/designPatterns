@@ -22,6 +22,8 @@ import java.util.Locale;
 import org.java.observerPatternV2.enums.EventType;
 import org.java.observerPatternV2.observers.Observer;
 import org.java.observerPatternV2.model.Sale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -123,7 +125,6 @@ public class PdfReportObserver implements Observer {
       Paragraph recordCount = new Paragraph(String.format("Number of Sales: %d", sales.size()));
       document.add(recordCount);
 
-      System.out.println("PDF report exported successfully to: " + path);
     } catch (DocumentException | IOException e) {
       throw new RuntimeException("Failed to export PDF: " + e.getMessage(), e);
     } finally {

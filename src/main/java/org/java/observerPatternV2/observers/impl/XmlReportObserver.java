@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import org.java.observerPatternV2.enums.EventType;
 import org.java.observerPatternV2.observers.Observer;
 import org.java.observerPatternV2.model.Sale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -94,7 +96,6 @@ public class XmlReportObserver implements Observer {
 
       transformer.transform(source, result);
 
-      System.out.println("XML report exported successfully to: " + path);
     } catch (Exception e) {
       throw new RuntimeException("Failed to export XML: " + e.getMessage(), e);
     }

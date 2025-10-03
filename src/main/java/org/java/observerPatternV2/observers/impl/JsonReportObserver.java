@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import org.java.observerPatternV2.enums.EventType;
 import org.java.observerPatternV2.observers.Observer;
 import org.java.observerPatternV2.model.Sale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -67,7 +69,6 @@ public class JsonReportObserver implements Observer {
       objectMapper.writerWithDefaultPrettyPrinter()
           .writeValue(path.toFile(), sales);
 
-      IO.println("JSON report exported successfully to: " + path);
     } catch (IOException e) {
       throw new RuntimeException("Failed to export JSON: " + e.getMessage(), e);
     }

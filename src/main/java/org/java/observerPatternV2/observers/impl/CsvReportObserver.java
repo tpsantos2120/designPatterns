@@ -6,6 +6,9 @@ import java.nio.file.Paths;
 import org.java.observerPatternV2.enums.EventType;
 import org.java.observerPatternV2.observers.Observer;
 import org.java.observerPatternV2.model.Sale;
+import org.java.observerPatternV2.subject.EventManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.FileWriter;
@@ -69,7 +72,6 @@ public class CsvReportObserver implements Observer {
             .append(sale.customerName()).append("\n");
       }
 
-      IO.println("CSV report exported successfully to: " + path);
     } catch (IOException e) {
       throw new RuntimeException("Failed to export CSV: " + e.getMessage(), e);
     }
