@@ -2,12 +2,6 @@ package org.java.observerPatternV2.controller;
 
 import java.util.Objects;
 import org.java.observerPatternV2.model.Sale;
-import org.java.observerPatternV2.observers.Observer;
-import org.java.observerPatternV2.observers.impl.CsvReportObserver;
-import org.java.observerPatternV2.observers.impl.JsonReportObserver;
-import org.java.observerPatternV2.observers.impl.PdfReportObserver;
-import org.java.observerPatternV2.observers.impl.XmlReportObserver;
-import org.java.observerPatternV2.service.Report;
 import org.java.observerPatternV2.service.ReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +36,8 @@ public class ReportController {
       return ResponseEntity.badRequest().body("Sales data cannot be empty");
     }
 
-    service.updateReportsV1(sales);
-    service.updateReportsV2(sales);
+    service.subscribeToAllReports(sales);
+    service.unsubscribeCsvReport(sales);
     service.deleteReports();
 
     return ResponseEntity.ok("Reports exported successfully. Check the reports directory.");

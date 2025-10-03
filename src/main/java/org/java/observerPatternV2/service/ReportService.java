@@ -32,14 +32,14 @@ public class ReportService {
    * @param sales the list of Sale objects containing data to be processed and used for
    *              generating reports
    */
-  public void updateReportsV1(List<Sale> sales) {
+  public void subscribeToAllReports(List<Sale> sales) {
     report.events.subscribe(EventType.UPDATE, csvReportObserver);
     report.events.subscribe(EventType.UPDATE, jsonReportObserver);
     report.events.subscribe(EventType.UPDATE, pdfReportObserver);
     report.events.subscribe(EventType.UPDATE, xmlReportObserver);
     report.updateReport(sales);
   }
-  public void updateReportsV2(List<Sale> sales) {
+  public void unsubscribeCsvReport(List<Sale> sales) {
     report.events.unsubscribe(EventType.UPDATE, csvReportObserver);
     report.updateReport(sales);
   }
