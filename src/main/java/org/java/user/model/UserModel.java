@@ -53,26 +53,21 @@ public class UserModel {
     return firstName;
   }
 
-
   public String lastName() {
     return lastName;
   }
-
 
   public String email() {
     return email;
   }
 
-
   public Integer age() {
     return age;
   }
 
-
   public String phone() {
     return phone;
   }
-
 
   public String address() {
     return address;
