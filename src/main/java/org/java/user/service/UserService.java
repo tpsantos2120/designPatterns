@@ -1,5 +1,6 @@
 package org.java.user.service;
 
+import java.util.Map;
 import org.java.user.data.UserRepository;
 import org.java.user.dto.UserDto;
 import org.java.user.exception.ValidationException;
@@ -51,7 +52,7 @@ public class UserService {
         .apply(userDto);
 
     if (!validationWithAll.isValid()) {
-      throw new ValidationException(validationWithAll.getReasons().orElse(java.util.Map.of()));
+      throw new ValidationException(validationWithAll.getReasons().orElse(Map.of()));
     }
 
     UserModel userModel = mapDtoToEntity(userDto);
