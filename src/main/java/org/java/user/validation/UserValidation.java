@@ -19,7 +19,7 @@ public interface UserValidation extends Validation<UserDto> {
   }
 
   static UserValidation isFirstNameValid() {
-    return userDto -> userDto.firstName() != null && !userDto.firstName().trim().isEmpty()
+    return userDto -> Objects.nonNull(userDto.firstName()) && !userDto.firstName().trim().isEmpty()
         ? ValidationResult.valid()
         : ValidationResult.invalid(
         ErrorCode.INVALID_FIRST_NAME.getCode(),
@@ -27,7 +27,7 @@ public interface UserValidation extends Validation<UserDto> {
   }
 
   static UserValidation isLastNameValid() {
-    return userDto -> userDto.lastName() != null && !userDto.lastName().trim().isEmpty()
+    return userDto -> Objects.nonNull(userDto.lastName()) && !userDto.lastName().trim().isEmpty()
         ? ValidationResult.valid()
         : ValidationResult.invalid(
         ErrorCode.INVALID_LAST_NAME.getCode(),
@@ -64,7 +64,7 @@ public interface UserValidation extends Validation<UserDto> {
 
   static UserValidation isAddressValid() {
     return userDto -> {
-      if (userDto.address() == null || userDto.address().trim().isEmpty()) {
+      if (Objects.isNull(userDto.address()) || userDto.address().trim().isEmpty()) {
         return ValidationResult.valid(); // Address is optional
       }
       return userDto.address().length() >= 10
@@ -78,9 +78,9 @@ public interface UserValidation extends Validation<UserDto> {
   static UserValidation hasMinimumNameLength(int minLength) {
     return userDto -> {
       boolean firstNameValid =
-          userDto.firstName() != null && userDto.firstName().length() >= minLength;
+          Objects.nonNull(userDto.firstName()) && userDto.firstName().length() >= minLength;
       boolean lastNameValid =
-          userDto.lastName() != null && userDto.lastName().length() >= minLength;
+          Objects.nonNull(userDto.lastName()) && userDto.lastName().length() >= minLength;
       return firstNameValid && lastNameValid
           ? ValidationResult.valid()
           : ValidationResult.invalid(
