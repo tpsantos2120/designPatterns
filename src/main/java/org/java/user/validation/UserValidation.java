@@ -1,11 +1,10 @@
 package org.java.user.validation;
 
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 import org.java.user.dto.UserDto;
 
-public interface UserValidation extends Function<UserDto, ValidationResult> {
+public interface UserValidation extends Validation<UserDto> {
 
   static UserValidation isEmailValid() {
     return userDto -> {
@@ -13,7 +12,8 @@ public interface UserValidation extends Function<UserDto, ValidationResult> {
       Pattern pattern = Pattern.compile(emailRegex);
       return Objects.nonNull(userDto.email()) && pattern.matcher(userDto.email()).matches()
           ? ValidationResult.valid()
-          : ValidationResult.invalid(ErrorCode.INVALID_EMAIL.getCode(),
+          : ValidationResult.invalid(
+          ErrorCode.INVALID_EMAIL.getCode(),
           ErrorCode.INVALID_EMAIL.getMessage());
     };
   }
@@ -21,14 +21,16 @@ public interface UserValidation extends Function<UserDto, ValidationResult> {
   static UserValidation isFirstNameValid() {
     return userDto -> userDto.firstName() != null && !userDto.firstName().trim().isEmpty()
         ? ValidationResult.valid()
-        : ValidationResult.invalid(ErrorCode.INVALID_FIRST_NAME.getCode(),
+        : ValidationResult.invalid(
+        ErrorCode.INVALID_FIRST_NAME.getCode(),
         ErrorCode.INVALID_FIRST_NAME.getMessage());
   }
 
   static UserValidation isLastNameValid() {
     return userDto -> userDto.lastName() != null && !userDto.lastName().trim().isEmpty()
         ? ValidationResult.valid()
-        : ValidationResult.invalid(ErrorCode.INVALID_LAST_NAME.getCode(),
+        : ValidationResult.invalid(
+        ErrorCode.INVALID_LAST_NAME.getCode(),
         ErrorCode.INVALID_LAST_NAME.getMessage());
   }
 
@@ -39,7 +41,8 @@ public interface UserValidation extends Function<UserDto, ValidationResult> {
       }
       return userDto.age() >= 18 && userDto.age() <= 120
           ? ValidationResult.valid()
-          : ValidationResult.invalid(ErrorCode.INVALID_AGE.getCode(),
+          : ValidationResult.invalid(
+          ErrorCode.INVALID_AGE.getCode(),
           ErrorCode.INVALID_AGE.getMessage());
     };
   }
@@ -53,7 +56,8 @@ public interface UserValidation extends Function<UserDto, ValidationResult> {
       Pattern pattern = Pattern.compile(phoneRegex);
       return pattern.matcher(userDto.phone().replaceAll("[\\s-]", "")).matches()
           ? ValidationResult.valid()
-          : ValidationResult.invalid(ErrorCode.INVALID_PHONE.getCode(),
+          : ValidationResult.invalid(
+          ErrorCode.INVALID_PHONE.getCode(),
           ErrorCode.INVALID_PHONE.getMessage());
     };
   }
@@ -65,7 +69,8 @@ public interface UserValidation extends Function<UserDto, ValidationResult> {
       }
       return userDto.address().length() >= 10
           ? ValidationResult.valid()
-          : ValidationResult.invalid(ErrorCode.INVALID_ADDRESS.getCode(),
+          : ValidationResult.invalid(
+          ErrorCode.INVALID_ADDRESS.getCode(),
           ErrorCode.INVALID_ADDRESS.getMessage());
     };
   }
@@ -78,36 +83,13 @@ public interface UserValidation extends Function<UserDto, ValidationResult> {
           userDto.lastName() != null && userDto.lastName().length() >= minLength;
       return firstNameValid && lastNameValid
           ? ValidationResult.valid()
-          : ValidationResult.invalid(ErrorCode.INVALID_NAME_LENGTH.getCode(),
+          : ValidationResult.invalid(
+          ErrorCode.INVALID_NAME_LENGTH.getCode(),
           ErrorCode.INVALID_NAME_LENGTH.getMessage(minLength));
     };
   }
 
-  default UserValidation and(UserValidation other) {
-    return userDto -> {
-      ValidationResult result = this.apply(userDto);
-      return result.isValid()
-          ? other.apply(userDto)
-          : result.and(other.apply(userDto));
-    };
-  }
-
-  default UserValidation or(UserValidation other) {
-    return userDto -> {
-      ValidationResult result = this.apply(userDto);
-      return result.isValid()
-          ? result
-          : other.apply(userDto);
-    };
-  }
-
-  static UserValidation when(boolean condition, UserValidation validation) {
-    return userDto -> condition
-        ? validation.apply(userDto)
-        : ValidationResult.valid();
-  }
-
-  static UserValidation all() {
+  static Validation<UserDto> all() {
     return isFirstNameValid()
         .and(isLastNameValid())
         .and(isEmailValid())
@@ -116,7 +98,7 @@ public interface UserValidation extends Function<UserDto, ValidationResult> {
         .and(isAddressValid());
   }
 
-  static UserValidation required() {
+  static Validation<UserDto> required() {
     return isFirstNameValid()
         .and(isLastNameValid())
         .and(isEmailValid());
