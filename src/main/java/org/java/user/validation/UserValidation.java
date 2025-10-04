@@ -6,6 +6,8 @@ import org.java.user.dto.UserDto;
 
 public interface UserValidation extends Validation<UserDto> {
 
+  int MIN_NAME_LENGTH = 4;
+
   static UserValidation isEmailValid() {
     return userDto -> {
       String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
@@ -77,11 +79,9 @@ public interface UserValidation extends Validation<UserDto> {
 
   static UserValidation hasMinimumNameLength(int minLength) {
     return userDto -> {
-      boolean firstNameValid =
-          Objects.nonNull(userDto.firstName()) && userDto.firstName().length() >= minLength;
-      boolean lastNameValid =
-          Objects.nonNull(userDto.lastName()) && userDto.lastName().length() >= minLength;
-      return firstNameValid && lastNameValid
+      boolean valid = userDto.firstName().length() >= minLength
+          && userDto.lastName().length() >= minLength;
+      return valid
           ? ValidationResult.valid()
           : ValidationResult.invalid(
           ErrorCode.INVALID_NAME_LENGTH.getCode(),
@@ -95,7 +95,8 @@ public interface UserValidation extends Validation<UserDto> {
         .and(isEmailValid())
         .and(isAgeValid())
         .and(isPhoneValid())
-        .and(isAddressValid());
+        .and(isAddressValid())
+        .and(hasMinimumNameLength(MIN_NAME_LENGTH));
   }
 
   static Validation<UserDto> required() {
