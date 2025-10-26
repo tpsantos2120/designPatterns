@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import org.java.exporter.ReportExporter;
+import org.java.model.ExportFormat;
 import org.java.model.Sale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,8 +93,8 @@ public class PdfExporter implements ReportExporter {
   }
 
   @Override
-  public String getFormat() {
-    return "PDF";
+  public ExportFormat getFormat() {
+    return ExportFormat.PDF;
   }
 
   private void addTableRow(PdfPTable table, Sale sale) {

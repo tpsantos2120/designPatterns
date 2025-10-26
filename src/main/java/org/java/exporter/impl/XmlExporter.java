@@ -9,6 +9,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.java.exporter.ReportExporter;
+import org.java.model.ExportFormat;
 import org.java.model.Sale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +68,8 @@ public class XmlExporter implements ReportExporter {
   }
 
   @Override
-  public String getFormat() {
-    return "XML";
+  public ExportFormat getFormat() {
+    return ExportFormat.XML;
   }
 
   private void appendTextElement(Document doc, Element parent, String name, String value) {

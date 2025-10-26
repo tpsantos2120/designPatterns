@@ -1,19 +1,7 @@
 [ {
-  "id" : "d9f548df-4b71-4dd4-b0bc-72efba7147f1",
+  "id" : "123e4567-e89b-12d3-a456-426614174010",
   "productName" : "Laptop",
   "amount" : 1299.99,
-  "date" : "2025-09-25",
-  "customerName" : "John Smith"
-}, {
-  "id" : "02f57ef8-b17f-4f1b-a601-38e1f77b7589",
-  "productName" : "Smartphone",
-  "amount" : 799.99,
-  "date" : "2025-09-26",
-  "customerName" : "Jane Doe"
-}, {
-  "id" : "a60a72e3-9190-4ad7-bea4-6d86007cf0cb",
-  "productName" : "Headphones",
-  "amount" : 199.99,
-  "date" : "2025-09-27",
-  "customerName" : "Bob Johnson"
+  "date" : "2024-10-26",
+  "customerName" : "Alice"
 } ]

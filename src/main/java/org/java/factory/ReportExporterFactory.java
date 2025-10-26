@@ -58,9 +58,9 @@ public class ReportExporterFactory {
   /**
    * Gets list of all supported formats.
    *
-   * @return List of supported export formats
+   * @return List of supported export format enums
    */
-  public List<String> getSupportedFormats() {
+  public List<ExportFormat> getSupportedFormats() {
     return List.of(
         csvExporter.getFormat(),
         jsonExporter.getFormat(),

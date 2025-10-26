@@ -102,9 +102,9 @@ public class ReportService {
   /**
    * Get list of supported export formats.
    *
-   * @return List of format names
+   * @return List of export format enums
    */
-  public List<String> getSupportedFormats() {
+  public List<ExportFormat> getSupportedFormats() {
     return exporterFactory.getSupportedFormats();
   }
 }

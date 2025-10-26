@@ -1,6 +1,7 @@
 package org.java.exporter;
 
 import java.util.List;
+import org.java.model.ExportFormat;
 import org.java.model.Sale;
 
 /**
@@ -20,7 +21,7 @@ public interface ReportExporter {
   /**
    * Get the format type this exporter handles.
    *
-   * @return The export format
+   * @return The export format enum value
    */
-  String getFormat();
+  ExportFormat getFormat();
 }

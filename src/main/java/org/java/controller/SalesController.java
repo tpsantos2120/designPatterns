@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.java.model.ExportFormat;
 import org.java.model.ExportRequest;
 import org.java.model.Sale;
 import org.java.service.ReportService;
@@ -78,13 +79,13 @@ public class SalesController {
 
   /**
    * Retrieves a list of supported export formats. The response contains a map with the list of
-   * format names under the key "formats" and the total count of formats under the key "count".
+   * format enums under the key "formats" and the total count of formats under the key "count".
    *
    * @return a ResponseEntity containing a map with supported formats and their count
    */
   @GetMapping("/formats")
   public ResponseEntity<Map<String, Object>> getSupportedFormats() {
-    List<String> formats = reportService.getSupportedFormats();
+    List<ExportFormat> formats = reportService.getSupportedFormats();
     return ResponseEntity.ok(Map.of(
         "formats", formats,
         "count", formats.size()

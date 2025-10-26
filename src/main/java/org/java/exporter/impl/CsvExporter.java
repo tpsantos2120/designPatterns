@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import org.java.exporter.ReportExporter;
+import org.java.model.ExportFormat;
 import org.java.model.Sale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +46,8 @@ public class CsvExporter implements ReportExporter {
   }
 
   @Override
-  public String getFormat() {
-    return "CSV";
+  public ExportFormat getFormat() {
+    return ExportFormat.CSV;
   }
 
   private String escapeSpecialCharacters(String text) {

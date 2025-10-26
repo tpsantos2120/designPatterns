@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><sales><sale><id>123e4567-e89b-12d3-a456-426614174002</id><productName>Keyboard</productName><amount>89.99</amount><date>2024-10-21</date><customerName>Bob Smith</customerName></sale></sales>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><sales><sale><id>123e4567-e89b-12d3-a456-426614174011</id><productName>Mouse</productName><amount>29.99</amount><date>2024-10-26</date><customerName>Bob</customerName></sale></sales>

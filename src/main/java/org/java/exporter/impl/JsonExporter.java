@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import org.java.exporter.ReportExporter;
+import org.java.model.ExportFormat;
 import org.java.model.Sale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,7 @@ public class JsonExporter implements ReportExporter {
   }
 
   @Override
-  public String getFormat() {
-    return "JSON";
+  public ExportFormat getFormat() {
+    return ExportFormat.JSON;
   }
 }
