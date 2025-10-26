@@ -9,17 +9,6 @@ public record Sale(UUID id,
                    LocalDate date,
                    String customerName) {
 
-  @Override
-  public String toString() {
-    return "Sale{" +
-        "id=" + id +
-        ", productName='" + productName + '\'' +
-        ", amount=" + amount +
-        ", date=" + date +
-        ", customerName='" + customerName + '\'' +
-        '}';
-  }
-
   /**
    * Creates a new Builder instance for constructing Sale objects. This is the entry point for the
    * Builder pattern.
