@@ -1,25 +1,39 @@
-package org.java;
+package org.java.model;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record Sale(UUID id, String productName, double amount, LocalDate date, String customerName) {
+public record Sale(UUID id,
+                   String productName,
+                   double amount,
+                   LocalDate date,
+                   String customerName) {
 
-    @Override
-    public String toString() {
-        return "Sale{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
-                ", amount=" + amount +
-                ", date=" + date +
-                ", customerName='" + customerName + '\'' +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "Sale{" +
+        "id=" + id +
+        ", productName='" + productName + '\'' +
+        ", amount=" + amount +
+        ", date=" + date +
+        ", customerName='" + customerName + '\'' +
+        '}';
+  }
 
+  /**
+   * Creates a new Builder instance for constructing Sale objects. This is the entry point for the
+   * Builder pattern.
+   *
+   * @return A new Builder instance
+   */
   public static Builder builder() {
     return new Builder();
   }
 
+  /**
+   * Builder class for Sale record. BUILDER PATTERN: Allows step-by-step construction of Sale
+   * objects with a fluent interface.
+   */
   public static final class Builder {
     private UUID id;
     private String productName;
@@ -55,6 +69,11 @@ public record Sale(UUID id, String productName, double amount, LocalDate date, S
       return this;
     }
 
+    /**
+     * Builds the Sale instance with the provided values.
+     *
+     * @return A new Sale instance
+     */
     public Sale build() {
       return new Sale(id, productName, amount, date, customerName);
     }
